@@ -1,0 +1,59 @@
+{
+  "available": true,
+  "n_users": 38,
+  "n_nights": 2381,
+  "n_short_nights": 592,
+  "definition": "short night = TST below the user's own 25th percentile",
+  "rhr_z_short_mean": 0.149,
+  "rhr_z_normal_mean": -0.049,
+  "hrv_z_short_mean": -0.214,
+  "hrv_z_normal_mean": 0.071,
+  "rhr_paired_diff_median": 0.185,
+  "hrv_paired_diff_median": -0.275,
+  "rhr_users_higher_after_short_pct": 68.4,
+  "hrv_users_lower_after_short_pct": 76.3,
+  "rhr_wilcoxon_p": 0.0028193641774123535,
+  "hrv_wilcoxon_p": 2.4329128791578114e-05,
+  "interpretation": "Across 38 real Fitbit users (2381 nights), short nights were followed by resting HR +0.20 SD and HRV -0.28 SD relative to the same person's normal nights (paired Wilcoxon p = 0.00282 for RHR, 2.43e-05 for HRV). Deviation from a personal baseline - the core idea of the twin - is visible in real data.",
+  "boxplot": {
+    "rhr": {
+      "short": [
+        -1.464,
+        -0.576,
+        0.169,
+        0.855,
+        1.786
+      ],
+      "normal": [
+        -1.633,
+        -0.768,
+        -0.063,
+        0.657,
+        1.598
+      ]
+    },
+    "hrv": {
+      "short": [
+        -1.855,
+        -0.904,
+        -0.211,
+        0.469,
+        1.492
+      ],
+      "normal": [
+        -1.451,
+        -0.603,
+        0.081,
+        0.72,
+        1.723
+      ]
+    },
+    "percentiles": [
+      5,
+      25,
+      50,
+      75,
+      95
+    ]
+  }
+}

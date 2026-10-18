@@ -1,0 +1,19 @@
+# data/raw/ (~18 MB of open datasets) IS committed so the app runs offline right after cloning
+# generated artefacts (re-create with: python -m src.pipeline)
+data/processed/
+models/
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# web
+web/node_modules/
+# web/dist is kept so devices without Node.js can still run the app (python run.py)
+web/*.tsbuildinfo
+# os / editors
+.DS_Store
+.idea/
+.vscode/
+.env
+*.log

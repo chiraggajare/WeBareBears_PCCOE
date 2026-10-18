@@ -1,0 +1,205 @@
+{
+ "id": "A",
+ "persona": "A",
+ "profile": {
+  "demographics": {
+   "name": "Rajesh Iyer",
+   "age": 54,
+   "sex": "M",
+   "bmi": 29.4,
+   "waist_cm": 101.0,
+   "city": "Mumbai"
+  },
+  "conditions": [
+   "T2D",
+   "HTN",
+   "Dyslipidemia"
+  ],
+  "diagnoses": [
+   {
+    "name": "Type 2 diabetes",
+    "year": 2017,
+    "active": true
+   },
+   {
+    "name": "Prediabetes",
+    "year": 2014,
+    "active": true
+   },
+   {
+    "name": "Hypertension",
+    "year": 2019,
+    "active": true
+   },
+   {
+    "name": "Dyslipidemia",
+    "year": 2018,
+    "active": true
+   }
+  ],
+  "labs": [
+   {
+    "name": "HbA1c",
+    "value": 8.1,
+    "prior": 8.1,
+    "unit": "%",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "Fasting glucose",
+    "value": 158.0,
+    "prior": 129.0,
+    "unit": "mg/dL",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "LDL cholesterol",
+    "value": 128.0,
+    "prior": 115.0,
+    "unit": "mg/dL",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "HDL cholesterol",
+    "value": 38.0,
+    "prior": 38.0,
+    "unit": "mg/dL",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "Triglycerides",
+    "value": 210.0,
+    "prior": 185.0,
+    "unit": "mg/dL",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "eGFR",
+    "value": 82.0,
+    "prior": 82.0,
+    "unit": "mL/min/1.73m\u00b2",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "Clinic SBP",
+    "value": 134.0,
+    "prior": 136.0,
+    "unit": "mmHg",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   },
+   {
+    "name": "Clinic DBP",
+    "value": 84.0,
+    "prior": 87.0,
+    "unit": "mmHg",
+    "date": "2026-09-15",
+    "prior_date": "2026-03-19"
+   }
+  ],
+  "medications": [
+   "Metformin",
+   "Beta-blocker (metoprolol)"
+  ],
+  "genetic_markers": {
+   "simulated": true,
+   "prs_t2d": 1.6,
+   "tcf7l2_risk_alleles": 2,
+   "mtnr1b_risk_allele": 1,
+   "notes": {
+    "prs_t2d": "Polygenic risk z-score for type 2 diabetes (0 = population average)",
+    "tcf7l2_risk_alleles": "TCF7L2 rs7903146-T copies (0/1/2); impairs insulin secretion",
+    "mtnr1b_risk_allele": "MTNR1B rs10830963-G carrier; late eating/sleep timing hurts glucose more"
+   }
+  }
+ },
+ "risk": 0.867,
+ "bp_risk": 0.258,
+ "risk_level": "critical",
+ "glucose_level": "critical",
+ "bp_level": "stable",
+ "reasons": [
+  {
+   "text": "Yesterday's glucose already peaked at 184 mg/dL",
+   "impact": 1.098,
+   "kind": "driver"
+  },
+  {
+   "text": "Bedtime 2.2 h later than usual (MTNR1B carrier: more timing-sensitive)",
+   "impact": 0.575,
+   "kind": "driver"
+  },
+  {
+   "text": "Low activity yesterday (5,166 steps)",
+   "impact": 0.459,
+   "kind": "driver"
+  },
+  {
+   "text": "4 short nights in a row (last 5.0 h vs usual 7.4 h)",
+   "impact": 0.43,
+   "kind": "driver"
+  },
+  {
+   "text": "Made worse by high HbA1c (8.1%)",
+   "impact": 2.534,
+   "kind": "modifier"
+  }
+ ],
+ "bp_reasons": [
+  {
+   "text": "Few oxygen dips at night",
+   "impact": -0.922,
+   "kind": "protective"
+  },
+  {
+   "text": "Resting HR change (+3 bpm) not concerning for this profile",
+   "impact": -0.206,
+   "kind": "protective"
+  },
+  {
+   "text": "Yesterday's glucose stayed mostly in range",
+   "impact": -0.149,
+   "kind": "protective"
+  },
+  {
+   "text": "Noted: 4 short nights in a row (last 5.0 h vs usual 7.4 h) - not enough to raise risk for this profile",
+   "impact": 1.158,
+   "kind": "noted"
+  }
+ ],
+ "spike_2h": {
+  "risk": 0.573,
+  "minutes_ahead": 35,
+  "alert": true,
+  "current_glucose": 147.0,
+  "trend_mg_dl_per_min": 0.97,
+  "reasons": [
+   "Glucose rising fast: 147 mg/dL, +29 in 30 min",
+   "Meal logged 30 min ago (58 g carbs)",
+   "Sleep debt 6.7 h lowers insulin sensitivity today"
+  ],
+  "as_of": "2026-10-17T13:00"
+ },
+ "masking": {
+  "on_beta_blocker": true,
+  "flagged": true,
+  "hrv_change_pct": -32.0,
+  "rhr_delta": 2.8,
+  "text": "On a beta-blocker: resting HR only +3 bpm, but HRV is down 32% - the twin watches HRV so this strain is not missed."
+ },
+ "apnea_flag": null,
+ "data_quality": {
+  "level": "good",
+  "missing_nights_7d": 0,
+  "cgm_missing_pct_24h": 0.0
+ },
+ "forecast_for": "2026-10-17",
+ "disclaimer": "Model-based projection for clinical decision support. Research prototype.",
+ "simulated": true
+}

@@ -1,0 +1,207 @@
+[
+ {
+  "id": "P199",
+  "name": "Fatima Khan",
+  "age": 44,
+  "sex": "F",
+  "conditions": [
+   "T2D",
+   "Dyslipidemia"
+  ],
+  "risk": 0.998,
+  "bp_risk": 0.002,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.958,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 218 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P147",
+  "name": "Karan Hegde",
+  "age": 55,
+  "sex": "M",
+  "conditions": [
+   "T2D",
+   "HTN",
+   "Dyslipidemia"
+  ],
+  "risk": 0.996,
+  "bp_risk": 0.775,
+  "risk_level": "critical",
+  "spike_2h_risk": null,
+  "spike_2h_alert": false,
+  "top_reason": "Yesterday's glucose already peaked at 223 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P232",
+  "name": "Rahul Pillai",
+  "age": 48,
+  "sex": "M",
+  "conditions": [
+   "T2D"
+  ],
+  "risk": 0.996,
+  "bp_risk": 0.002,
+  "risk_level": "critical",
+  "spike_2h_risk": null,
+  "spike_2h_alert": false,
+  "top_reason": "Yesterday's glucose already peaked at 207 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P064",
+  "name": "Nisha Pandey",
+  "age": 70,
+  "sex": "F",
+  "conditions": [
+   "T2D",
+   "HTN"
+  ],
+  "risk": 0.995,
+  "bp_risk": 0.029,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.33,
+  "spike_2h_alert": false,
+  "top_reason": "Yesterday's glucose already peaked at 226 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P213",
+  "name": "Tarun Malhotra",
+  "age": 68,
+  "sex": "M",
+  "conditions": [
+   "T2D",
+   "Dyslipidemia"
+  ],
+  "risk": 0.994,
+  "bp_risk": 0.003,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.731,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 238 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P278",
+  "name": "Tarun Shetty",
+  "age": 47,
+  "sex": "M",
+  "conditions": [
+   "T2D"
+  ],
+  "risk": 0.993,
+  "bp_risk": 0.002,
+  "risk_level": "critical",
+  "spike_2h_risk": 1.0,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 217 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P207",
+  "name": "Rahul Naidu",
+  "age": 56,
+  "sex": "M",
+  "conditions": [
+   "T2D",
+   "HTN",
+   "OSA"
+  ],
+  "risk": 0.992,
+  "bp_risk": 0.655,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.768,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 221 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P144",
+  "name": "Manisha Banerjee",
+  "age": 60,
+  "sex": "F",
+  "conditions": [
+   "T2D",
+   "HTN",
+   "Dyslipidemia"
+  ],
+  "risk": 0.991,
+  "bp_risk": 0.98,
+  "risk_level": "critical",
+  "spike_2h_risk": 1.0,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 271 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P215",
+  "name": "Kiran Pandey",
+  "age": 54,
+  "sex": "F",
+  "conditions": [
+   "T2D",
+   "HTN"
+  ],
+  "risk": 0.751,
+  "bp_risk": 0.991,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.171,
+  "spike_2h_alert": false,
+  "top_reason": "Frequent oxygen dips at night (~17/hr) - possible sleep apnea",
+  "persona": null
+ },
+ {
+  "id": "P052",
+  "name": "Vikram Pillai",
+  "age": 51,
+  "sex": "M",
+  "conditions": [
+   "T2D",
+   "OSA"
+  ],
+  "risk": 0.99,
+  "bp_risk": 0.007,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.88,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 214 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P068",
+  "name": "Nandini Banerjee",
+  "age": 68,
+  "sex": "F",
+  "conditions": [
+   "T2D",
+   "HTN",
+   "Dyslipidemia"
+  ],
+  "risk": 0.99,
+  "bp_risk": 0.021,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.974,
+  "spike_2h_alert": true,
+  "top_reason": "Yesterday's glucose already peaked at 207 mg/dL",
+  "persona": null
+ },
+ {
+  "id": "P026",
+  "name": "Tanvi Iyer",
+  "age": 39,
+  "sex": "F",
+  "conditions": [
+   "T2D"
+  ],
+  "risk": 0.988,
+  "bp_risk": 0.442,
+  "risk_level": "critical",
+  "spike_2h_risk": 0.378,
+  "spike_2h_alert": false,
+  "top_reason": "Yesterday's glucose already peaked at 228 mg/dL",
+  "persona": null
+ }
+]

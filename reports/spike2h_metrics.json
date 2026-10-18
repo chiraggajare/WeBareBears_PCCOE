@@ -1,0 +1,19 @@
+{
+  "n_samples": 28224,
+  "n_patients": 300,
+  "event_rate": 0.047,
+  "auroc": 0.951,
+  "auprc": 0.611,
+  "threshold": 0.4,
+  "sensitivity": 0.498,
+  "false_alerts_per_patient_week": 1.283,
+  "episodes": 829,
+  "episodes_warned": 494,
+  "episode_recall": 0.596,
+  "median_lead_min": 70.0,
+  "iqr_lead_min": [
+    40.0,
+    95.0
+  ],
+  "trend_only_auroc": 0.785
+}

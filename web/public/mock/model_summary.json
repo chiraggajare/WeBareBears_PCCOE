@@ -1,0 +1,209 @@
+{
+ "nextday": {
+  "n_patients": 300,
+  "n_rows": 2100,
+  "prediction_days": "15-21",
+  "cv": "GroupKFold(5) by patient_id",
+  "glucose_event_24h": {
+   "ehr_only": {
+    "auroc": 0.912,
+    "auprc": 0.779,
+    "prevalence": 0.203,
+    "sensitivity": 0.641,
+    "specificity": 0.95,
+    "false_alerts_per_patient_week": 0.28,
+    "threshold": 0.5
+   },
+   "t2d_subgroup": {
+    "ehr_only": 0.853,
+    "wearables_only": 0.874,
+    "fused": 0.877
+   },
+   "wearables_only": {
+    "auroc": 0.924,
+    "auprc": 0.809,
+    "prevalence": 0.203,
+    "sensitivity": 0.622,
+    "specificity": 0.953,
+    "false_alerts_per_patient_week": 0.26,
+    "threshold": 0.5
+   },
+   "fused": {
+    "auroc": 0.931,
+    "auprc": 0.821,
+    "prevalence": 0.203,
+    "sensitivity": 0.643,
+    "specificity": 0.958,
+    "false_alerts_per_patient_week": 0.237,
+    "threshold": 0.5
+   },
+   "interpretation": "Fusing the health record with the wearable stream (AUROC 0.93) beats the record alone (0.91) and the wearables alone (0.92); within diabetics only the gain is larger (0.85 -> 0.88), because the same night means more for a high-risk patient."
+  },
+  "bp_event": {
+   "ehr_only": {
+    "auroc": 0.897,
+    "auprc": 0.757,
+    "prevalence": 0.222,
+    "sensitivity": 0.567,
+    "specificity": 0.961,
+    "false_alerts_per_patient_week": 0.213,
+    "threshold": 0.5
+   },
+   "t2d_subgroup": {
+    "ehr_only": 0.864,
+    "wearables_only": 0.584,
+    "fused": 0.909
+   },
+   "wearables_only": {
+    "auroc": 0.639,
+    "auprc": 0.361,
+    "prevalence": 0.222,
+    "sensitivity": 0.212,
+    "specificity": 0.931,
+    "false_alerts_per_patient_week": 0.377,
+    "threshold": 0.5
+   },
+   "fused": {
+    "auroc": 0.932,
+    "auprc": 0.812,
+    "prevalence": 0.222,
+    "sensitivity": 0.668,
+    "specificity": 0.95,
+    "false_alerts_per_patient_week": 0.273,
+    "threshold": 0.5
+   },
+   "interpretation": "Fusing the health record with the wearable stream (AUROC 0.93) beats the record alone (0.90) and the wearables alone (0.64); within diabetics only the gain is larger (0.86 -> 0.91), because the same night means more for a high-risk patient."
+  },
+  "personas": {
+   "A": {
+    "glucose_risk": 0.867,
+    "bp_risk": 0.258
+   },
+   "B": {
+    "glucose_risk": 0.008,
+    "bp_risk": 0.694
+   },
+   "C": {
+    "glucose_risk": 0.002,
+    "bp_risk": 0.002
+   }
+  },
+  "top_features_glucose": {
+   "hba1c": 1.103,
+   "cgm_max_prev_24h": 0.969,
+   "tir_prev_24h": 0.775,
+   "cgm_mean_z": 0.498,
+   "odi_z": 0.223,
+   "bedtime_shift": 0.218,
+   "age": 0.191,
+   "eff_delta": 0.183,
+   "bmi": 0.166,
+   "steps_z": 0.164,
+   "sbp_clinic": 0.144,
+   "rhr_delta": 0.142
+  }
+ },
+ "spike_2h": {
+  "n_samples": 28224,
+  "n_patients": 300,
+  "event_rate": 0.047,
+  "auroc": 0.951,
+  "auprc": 0.611,
+  "threshold": 0.4,
+  "sensitivity": 0.498,
+  "false_alerts_per_patient_week": 1.283,
+  "episodes": 829,
+  "episodes_warned": 494,
+  "episode_recall": 0.596,
+  "median_lead_min": 70.0,
+  "iqr_lead_min": [
+   40.0,
+   95.0
+  ],
+  "trend_only_auroc": 0.785
+ },
+ "lifesnaps_validation": {
+  "available": true,
+  "n_users": 38,
+  "n_nights": 2381,
+  "n_short_nights": 592,
+  "definition": "short night = TST below the user's own 25th percentile",
+  "rhr_z_short_mean": 0.149,
+  "rhr_z_normal_mean": -0.049,
+  "hrv_z_short_mean": -0.214,
+  "hrv_z_normal_mean": 0.071,
+  "rhr_paired_diff_median": 0.185,
+  "hrv_paired_diff_median": -0.275,
+  "rhr_users_higher_after_short_pct": 68.4,
+  "hrv_users_lower_after_short_pct": 76.3,
+  "rhr_wilcoxon_p": 0.0028193641774123535,
+  "hrv_wilcoxon_p": 2.4329128791578114e-05,
+  "interpretation": "Across 38 real Fitbit users (2381 nights), short nights were followed by resting HR +0.20 SD and HRV -0.28 SD relative to the same person's normal nights (paired Wilcoxon p = 0.00282 for RHR, 2.43e-05 for HRV). Deviation from a personal baseline - the core idea of the twin - is visible in real data.",
+  "boxplot": {
+   "rhr": {
+    "short": [
+     -1.464,
+     -0.576,
+     0.169,
+     0.855,
+     1.786
+    ],
+    "normal": [
+     -1.633,
+     -0.768,
+     -0.063,
+     0.657,
+     1.598
+    ]
+   },
+   "hrv": {
+    "short": [
+     -1.855,
+     -0.904,
+     -0.211,
+     0.469,
+     1.492
+    ],
+    "normal": [
+     -1.451,
+     -0.603,
+     0.081,
+     0.72,
+     1.723
+    ]
+   },
+   "percentiles": [
+    5,
+    25,
+    50,
+    75,
+    95
+   ]
+  }
+ },
+ "data_card": {
+  "cohort": "300 virtual patients x 21 days (SIMULATED)",
+  "static_stream": "Synthetic EHR: demographics, diagnoses + years, labs (latest + prior), medications, simulated genetic markers (TCF7L2, MTNR1B, T2D PRS)",
+  "dynamic_stream": "Simulated wearables: sleep stages (5-min), HRV, resting HR, steps, SpO2 dips, CGM every 5 min (Bergman minimal model)",
+  "ehr_calibration": "NHANES 2017-Mar 2020 (downloaded)",
+  "wearable_calibration": "LifeSnaps daily Fitbit export (downloaded)",
+  "cohort_mix": {
+   "t2d": 0.37,
+   "prediabetes": 0.29,
+   "htn": 0.52,
+   "osa_true": 0.2633333333333333,
+   "osa_diagnosed": 0.05333333333333334
+  },
+  "event_rate_glucose": 0.20285714285714285,
+  "event_rate_bp": 0.22238095238095237,
+  "glucose_range": [
+   66.22575057048947,
+   315.6386936278189
+  ],
+  "si_drop_4x5h": 0.25,
+  "missing_nights_pct": 0.04523809523809524,
+  "cgm_missing_pct": 0.05,
+  "sandbox": "Only synthetic, anonymized (NHANES) or open-source (LifeSnaps CC-BY-4.0) data. No real patient data, no personal data."
+ },
+ "disclaimer": "Model-based projection for clinical decision support. Research prototype."
+}

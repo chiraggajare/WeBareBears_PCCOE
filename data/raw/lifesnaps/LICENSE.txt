@@ -1,0 +1,7 @@
+LifeSnaps - daily_fitbit_sema_df_unprocessed.csv (extracted unchanged from rais_anonymized.zip)
+Source: Zenodo record 7229547 - https://zenodo.org/records/7229547
+Citation: Yfantidou S. et al. "LifeSnaps, a 4-month multi-modal dataset capturing unobtrusive snapshots of
+our lives in the wild." Scientific Data 9, 663 (2022). https://doi.org/10.1038/s41597-022-01764-x
+Licence: Creative Commons Attribution 4.0 International (CC BY 4.0) - https://creativecommons.org/licenses/by/4.0/
+Changes: none (only this one file was extracted from the archive). Anonymized data from consenting volunteers.
+Integrity: SHA-256 pinned in scripts/download_data.py.

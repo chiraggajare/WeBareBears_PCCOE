@@ -1,0 +1,104 @@
+{
+  "n_patients": 300,
+  "n_rows": 2100,
+  "prediction_days": "15-21",
+  "cv": "GroupKFold(5) by patient_id",
+  "glucose_event_24h": {
+    "ehr_only": {
+      "auroc": 0.912,
+      "auprc": 0.779,
+      "prevalence": 0.203,
+      "sensitivity": 0.641,
+      "specificity": 0.95,
+      "false_alerts_per_patient_week": 0.28,
+      "threshold": 0.5
+    },
+    "t2d_subgroup": {
+      "ehr_only": 0.853,
+      "wearables_only": 0.874,
+      "fused": 0.877
+    },
+    "wearables_only": {
+      "auroc": 0.924,
+      "auprc": 0.809,
+      "prevalence": 0.203,
+      "sensitivity": 0.622,
+      "specificity": 0.953,
+      "false_alerts_per_patient_week": 0.26,
+      "threshold": 0.5
+    },
+    "fused": {
+      "auroc": 0.931,
+      "auprc": 0.821,
+      "prevalence": 0.203,
+      "sensitivity": 0.643,
+      "specificity": 0.958,
+      "false_alerts_per_patient_week": 0.237,
+      "threshold": 0.5
+    },
+    "interpretation": "Fusing the health record with the wearable stream (AUROC 0.93) beats the record alone (0.91) and the wearables alone (0.92); within diabetics only the gain is larger (0.85 -> 0.88), because the same night means more for a high-risk patient."
+  },
+  "bp_event": {
+    "ehr_only": {
+      "auroc": 0.897,
+      "auprc": 0.757,
+      "prevalence": 0.222,
+      "sensitivity": 0.567,
+      "specificity": 0.961,
+      "false_alerts_per_patient_week": 0.213,
+      "threshold": 0.5
+    },
+    "t2d_subgroup": {
+      "ehr_only": 0.864,
+      "wearables_only": 0.584,
+      "fused": 0.909
+    },
+    "wearables_only": {
+      "auroc": 0.639,
+      "auprc": 0.361,
+      "prevalence": 0.222,
+      "sensitivity": 0.212,
+      "specificity": 0.931,
+      "false_alerts_per_patient_week": 0.377,
+      "threshold": 0.5
+    },
+    "fused": {
+      "auroc": 0.932,
+      "auprc": 0.812,
+      "prevalence": 0.222,
+      "sensitivity": 0.668,
+      "specificity": 0.95,
+      "false_alerts_per_patient_week": 0.273,
+      "threshold": 0.5
+    },
+    "interpretation": "Fusing the health record with the wearable stream (AUROC 0.93) beats the record alone (0.90) and the wearables alone (0.64); within diabetics only the gain is larger (0.86 -> 0.91), because the same night means more for a high-risk patient."
+  },
+  "personas": {
+    "A": {
+      "glucose_risk": 0.867,
+      "bp_risk": 0.258
+    },
+    "B": {
+      "glucose_risk": 0.008,
+      "bp_risk": 0.694
+    },
+    "C": {
+      "glucose_risk": 0.002,
+      "bp_risk": 0.002
+    }
+  },
+  "top_features_glucose": {
+    "hba1c": 1.103,
+    "cgm_max_prev_24h": 0.969,
+    "tir_prev_24h": 0.775,
+    "cgm_mean_z": 0.498,
+    "odi_z": 0.223,
+    "bedtime_shift": 0.218,
+    "age": 0.191,
+    "eff_delta": 0.183,
+    "bmi": 0.166,
+    "steps_z": 0.164,
+    "sbp_clinic": 0.144,
+    "rhr_delta": 0.142
+  }
+}

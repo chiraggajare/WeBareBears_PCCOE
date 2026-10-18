@@ -1,0 +1,5 @@
+CDC NHANES 2017-March 2020 pre-pandemic data files (P_*.xpt)
+Source: U.S. Centers for Disease Control and Prevention, National Center for Health Statistics
+https://wwwn.cdc.gov/nchs/nhanes/  (files from https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/)
+Licence: U.S. government work - public domain. Anonymized public-use files, redistributed unchanged.
+Integrity: SHA-256 of every file is pinned in scripts/download_data.py.
