@@ -87,6 +87,8 @@ def main():
                        medianprops=dict(color="#1d4ed8"))
             ax.axhline(0, color="#94a3b8", lw=0.8, ls="--")
             ax.set_title(title, fontsize=10)
+            ax.set_xlabel("Sleep condition", fontsize=9)
+            ax.set_ylabel("Normalized score (z)", fontsize=9)
         fig.suptitle(f"LifeSnaps real-data check: {res['n_users']} users, {res['n_nights']} nights", fontsize=10)
         fig.tight_layout()
         fig.savefig(REPORTS / "lifesnaps_boxplot.png", dpi=160)

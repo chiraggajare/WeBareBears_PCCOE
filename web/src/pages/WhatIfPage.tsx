@@ -208,12 +208,22 @@ function Curve({ res }: { res: WhatIfResult }) {
   const max = Math.max(200, ...res.glucose_before, ...res.glucose_after)
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data} margin={{ top: 10, right: 16, left: -8, bottom: 0 }}>
+      <LineChart data={data} margin={{ top: 10, right: 16, left: 14, bottom: 12 }}>
         <CartesianGrid stroke="#f1f5f9" vertical={false} />
         <ReferenceArea y1={70} y2={180} fill="#10b981" fillOpacity={0.08} />
         <ReferenceLine y={180} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '180 mg/dL', fontSize: 10, fill: '#ef4444', position: 'insideTopRight' }} />
-        <XAxis dataKey="t" interval={35} tick={{ fontSize: 11, fill: '#64748b' }} />
-        <YAxis domain={[60, Math.ceil(max / 20) * 20]} tick={{ fontSize: 11, fill: '#64748b' }} width={48} />
+        <XAxis
+          dataKey="t"
+          interval={35}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          label={{ value: 'Time of day', position: 'insideBottom', offset: -8, fontSize: 11, fill: '#64748b' }}
+        />
+        <YAxis
+          domain={[60, Math.ceil(max / 20) * 20]}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          width={48}
+          label={{ value: 'Glucose (mg/dL)', angle: -90, position: 'insideLeft', offset: -4, style: { textAnchor: 'middle', fontSize: 11, fill: '#64748b' } }}
+        />
         <Line dataKey="before" name="As things stand" stroke="#94a3b8" strokeWidth={2} dot={false} isAnimationActive={false} />
         <Line dataKey="after" name="With scenario" stroke={ACCENT} strokeWidth={2.5} dot={false} isAnimationActive={false} />
         <Legend verticalAlign="top" height={28} iconType="plainline" />

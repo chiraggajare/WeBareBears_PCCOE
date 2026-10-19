@@ -40,16 +40,16 @@ export default function TrendsPage() {
           <Card title="Daily glucose peak vs 180 mg/dL" right={<span className="text-xs text-slate-500">red = spike day · grey = today so far</span>}><PeakChart days={data.days} /></Card>
         </>}
         {tab === 'Sleep' && <>
-          <Card title="Sleep duration (hours)"><BandChart days={data.days} k="tst" band="tst_band" unit="h" /></Card>
+          <Card title="Sleep duration (hours)"><BandChart days={data.days} k="tst" band="tst_band" unit="h" yLabel="Duration (h)" /></Card>
           <Card title={`Last night's sleep stages (${data.hypnogram.date})`}><Hypnogram t={data} /></Card>
         </>}
         {tab === 'Heart' && <>
-          <Card title="HRV (RMSSD, ms) – drops under strain"><BandChart days={data.days} k="hrv" band="hrv_band" unit="ms" /></Card>
-          <Card title="Resting heart rate (bpm)"><BandChart days={data.days} k="rhr" band="rhr_band" unit="bpm" /></Card>
+          <Card title="HRV (RMSSD, ms) – drops under strain"><BandChart days={data.days} k="hrv" band="hrv_band" unit="ms" yLabel="HRV (ms)" /></Card>
+          <Card title="Resting heart rate (bpm)"><BandChart days={data.days} k="rhr" band="rhr_band" unit="bpm" yLabel="Resting HR (bpm)" /></Card>
         </>}
         {tab === 'Activity & oxygen' && <>
-          <Card title="Steps per day"><BandChart days={data.days} k="steps" band="steps_band" unit="" /></Card>
-          <Card title="Oxygen dips per hour (ODI) – sleep apnea signal"><BandChart days={data.days} k="odi" band="odi_band" unit="/h" danger={15} /></Card>
+          <Card title="Steps per day"><BandChart days={data.days} k="steps" band="steps_band" unit="" yLabel="Steps" /></Card>
+          <Card title="Oxygen dips per hour (ODI) – sleep apnea signal"><BandChart days={data.days} k="odi" band="odi_band" unit="/h" danger={15} yLabel="ODI (/h)" /></Card>
         </>}
       </div>
       <MissingNote days={data.days} />
@@ -66,14 +66,26 @@ function MissingNote({ days }: { days: TrendDay[] }) {
 
 const dayTick = (d: string) => d.slice(5)
 
-function BandChart({ days, k, band, unit, danger }: { days: TrendDay[]; k: keyof TrendDay; band: keyof TrendDay; unit: string; danger?: number }) {
+function BandChart({ days, k, band, unit, danger, yLabel }: { days: TrendDay[]; k: keyof TrendDay; band: keyof TrendDay; unit: string; danger?: number; yLabel?: string }) {
   const data = useMemo(() => days.map((d) => ({ date: d.date, v: d[k] as number | null, band: d[band] as [number, number] })), [days, k, band])
+  const resolvedYLabel = yLabel ?? (unit ? `Value (${unit})` : 'Value')
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <ComposedChart data={data} margin={{ top: 10, right: 10, left: -8, bottom: 0 }}>
+      <ComposedChart data={data} margin={{ top: 10, right: 10, left: 14, bottom: 12 }}>
         <CartesianGrid stroke="#f1f5f9" vertical={false} />
-        <XAxis dataKey="date" tickFormatter={dayTick} tick={{ fontSize: 11, fill: '#64748b' }} interval={2} />
-        <YAxis tick={{ fontSize: 11, fill: '#64748b' }} domain={['auto', 'auto']} width={48} />
+        <XAxis
+          dataKey="date"
+          tickFormatter={dayTick}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          interval={2}
+          label={{ value: 'Date', position: 'insideBottom', offset: -8, fontSize: 11, fill: '#64748b' }}
+        />
+        <YAxis
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          domain={['auto', 'auto']}
+          width={48}
+          label={{ value: resolvedYLabel, angle: -90, position: 'insideLeft', offset: -4, style: { textAnchor: 'middle', fontSize: 11, fill: '#64748b' } }}
+        />
         <ReferenceArea x1={days[0].date} x2={days[13].date} fill="#f8fafc" label={{ value: 'learning personal normal', position: 'insideTop', fontSize: 10, fill: '#94a3b8' }} />
         <Area dataKey="band" stroke="none" fill={BAND} fillOpacity={0.14} isAnimationActive={false} name="Personal normal" />
         {danger != null && <ReferenceLine y={danger} stroke="#ef4444" strokeDasharray="4 4" label={{ value: `${danger}${unit}`, fontSize: 10, fill: '#ef4444', position: 'right' }} />}
@@ -89,12 +101,25 @@ function CgmChart({ t }: { t: Trends }) {
   const ticks = data.filter((p) => p.t.endsWith('T00:00') || p.t.endsWith('T06:00') || p.t.endsWith('T12:00') || p.t.endsWith('T18:00')).map((p) => p.t)
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <LineChart data={data} margin={{ top: 10, right: 10, left: -8, bottom: 0 }}>
+      <LineChart data={data} margin={{ top: 10, right: 10, left: 14, bottom: 12 }}>
         <CartesianGrid stroke="#f1f5f9" vertical={false} />
         <ReferenceArea y1={t.cgm_target[0]} y2={t.cgm_target[1]} fill={BAND} fillOpacity={0.1} />
         <ReferenceLine y={180} stroke="#ef4444" strokeDasharray="4 4" />
-        <XAxis dataKey="t" ticks={ticks} tickFormatter={(s: string) => `${s.slice(5, 10)} ${s.slice(11)}`} tick={{ fontSize: 11, fill: '#64748b' }} />
-        <YAxis domain={[50, 300]} ticks={[70, 100, 140, 180, 250, 300]} allowDataOverflow tick={{ fontSize: 11, fill: '#64748b' }} width={48} />
+        <XAxis
+          dataKey="t"
+          ticks={ticks}
+          tickFormatter={(s: string) => `${s.slice(5, 10)} ${s.slice(11)}`}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          label={{ value: 'Time', position: 'insideBottom', offset: -8, fontSize: 11, fill: '#64748b' }}
+        />
+        <YAxis
+          domain={[50, 300]}
+          ticks={[70, 100, 140, 180, 250, 300]}
+          allowDataOverflow
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          width={48}
+          label={{ value: 'Glucose (mg/dL)', angle: -90, position: 'insideLeft', offset: -4, style: { textAnchor: 'middle', fontSize: 11, fill: '#64748b' } }}
+        />
         <Line dataKey="g" stroke={ACCENT} strokeWidth={2} dot={false} connectNulls={false} isAnimationActive={false} name="Glucose" />
         <Tooltip labelFormatter={(s) => String(s ?? '').replace('T', ' ')} formatter={(v) => [`${v ?? '—'} mg/dL`, 'Glucose']} />
       </LineChart>
@@ -105,10 +130,21 @@ function CgmChart({ t }: { t: Trends }) {
 function PeakChart({ days }: { days: TrendDay[] }) {
   return (
     <ResponsiveContainer width="100%" height={280}>
-      <ComposedChart data={days} margin={{ top: 10, right: 10, left: -8, bottom: 0 }}>
+      <ComposedChart data={days} margin={{ top: 10, right: 10, left: 14, bottom: 12 }}>
         <CartesianGrid stroke="#f1f5f9" vertical={false} />
-        <XAxis dataKey="date" tickFormatter={dayTick} tick={{ fontSize: 11, fill: '#64748b' }} interval={2} />
-        <YAxis domain={[80, 'auto']} tick={{ fontSize: 11, fill: '#64748b' }} width={48} />
+        <XAxis
+          dataKey="date"
+          tickFormatter={dayTick}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          interval={2}
+          label={{ value: 'Date', position: 'insideBottom', offset: -8, fontSize: 11, fill: '#64748b' }}
+        />
+        <YAxis
+          domain={[80, 'auto']}
+          tick={{ fontSize: 11, fill: '#64748b' }}
+          width={48}
+          label={{ value: 'Peak Glucose (mg/dL)', angle: -90, position: 'insideLeft', offset: -4, style: { textAnchor: 'middle', fontSize: 11, fill: '#64748b' } }}
+        />
         <ReferenceLine y={180} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '180', fontSize: 10, fill: '#ef4444', position: 'right' }} />
         <Bar dataKey="cgm_peak" radius={[4, 4, 0, 0]} isAnimationActive={false} name="Peak">
           {days.map((d) => <Cell key={d.date} fill={d.partial ? '#cbd5e1' : (d.cgm_peak ?? 0) > 180 ? '#ef4444' : ACCENT} />)}
@@ -137,10 +173,23 @@ function Hypnogram({ t }: { t: Trends }) {
   return (
     <div>
       <ResponsiveContainer width="100%" height={230}>
-        <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+        <LineChart data={data} margin={{ top: 10, right: 10, left: 14, bottom: 12 }}>
           <CartesianGrid stroke="#f1f5f9" vertical={false} />
-          <XAxis dataKey="t" interval={Math.max(1, Math.floor(data.length / 7))} tick={{ fontSize: 11, fill: '#64748b' }} />
-          <YAxis dataKey="y" domain={[0, 3]} ticks={[0, 1, 2, 3]} tickFormatter={(v: number) => ['Deep', 'Light', 'REM', 'Wake'][v]} tick={{ fontSize: 11, fill: '#64748b' }} width={48} />
+          <XAxis
+            dataKey="t"
+            interval={Math.max(1, Math.floor(data.length / 7))}
+            tick={{ fontSize: 11, fill: '#64748b' }}
+            label={{ value: 'Time', position: 'insideBottom', offset: -8, fontSize: 11, fill: '#64748b' }}
+          />
+          <YAxis
+            dataKey="y"
+            domain={[0, 3]}
+            ticks={[0, 1, 2, 3]}
+            tickFormatter={(v: number) => ['Deep', 'Light', 'REM', 'Wake'][v]}
+            tick={{ fontSize: 11, fill: '#64748b' }}
+            width={48}
+            label={{ value: 'Sleep Stage', angle: -90, position: 'insideLeft', offset: -4, style: { textAnchor: 'middle', fontSize: 11, fill: '#64748b' } }}
+          />
           <Line type="stepAfter" dataKey="y" stroke={ACCENT} strokeWidth={2} dot={false} isAnimationActive={false} />
           <Tooltip formatter={(_v, _n, item) => [String((item?.payload as { stage?: string } | undefined)?.stage ?? ''), 'Stage']} />
         </LineChart>
