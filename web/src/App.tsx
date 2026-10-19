@@ -6,6 +6,7 @@ import OverviewPage from './pages/OverviewPage'
 import TrendsPage from './pages/TrendsPage'
 import WhatIfPage from './pages/WhatIfPage'
 import AboutPage from './pages/AboutPage'
+import AbbreviationsPage from './pages/AbbreviationsPage'
 
 const PERSONAS = [
   { id: 'A', label: 'A', title: 'Persona A – 54M diabetic executive, 4 short nights' },
@@ -46,6 +47,7 @@ function Header() {
     { to: `/patients/${currentId}/trends`, label: 'Trends' },
     { to: `/patients/${currentId}/what-if`, label: 'What-If' },
     { to: '/about', label: 'How It Works' },
+    { to: '/abbreviations', label: 'Abbreviations' },
   ]
   const switchTo = (id: string) => {
     setCurrentId(id)
@@ -94,6 +96,7 @@ export default function App() {
               <Route path="/patients/:id/trends" element={<TrendsPage />} />
               <Route path="/patients/:id/what-if" element={<WhatIfPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/abbreviations" element={<AbbreviationsPage />} />
               <Route path="*" element={<div className="py-24 text-center text-slate-500">Page not found.</div>} />
             </Routes>
           </main>
