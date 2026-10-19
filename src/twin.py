@@ -190,6 +190,7 @@ class Twin:
 
     def patient_detail(self, pid):
         prof = self.profiles.loc[pid]
+        bs = self.bstats.loc[pid]
         s = self._summary_cache[pid]
         row = s["row"]
         miss_n = int(row.get("missing_nights_7d", 0) or 0)
@@ -245,6 +246,13 @@ class Twin:
             "apnea_flag": self.apnea_flag(pid),
             "data_quality": {"level": dq_level, "missing_nights_7d": miss_n,
                              "cgm_missing_pct_24h": round(cgm_miss * 100, 1)},
+            "baseline_glucose": {
+                "usual_mean": _f(bs.cgm_mean_mean, 0),
+                "usual_sd": _f(bs.cgm_mean_sd, 0),
+                "fasting": _f(prof.fasting_glucose, 0),
+                "fasting_prior": _f(prof.fasting_glucose_prior, 0),
+                "target_range": [70, 180],
+            },
             "forecast_for": str(day_date(DAY)),
             "disclaimer": DISCLAIMER, "simulated": True,
         }

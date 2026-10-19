@@ -58,6 +58,13 @@ export interface PatientDetail {
   masking: { on_beta_blocker: boolean; flagged: boolean; hrv_change_pct: number | null; rhr_delta: number | null; text: string } | null
   apnea_flag: { odi_7d: number; tst_7d: number; diagnosed: boolean; text: string } | null
   data_quality: { level: 'good' | 'low'; missing_nights_7d: number; cgm_missing_pct_24h: number }
+  baseline_glucose?: {
+    usual_mean: number | null
+    usual_sd: number | null
+    fasting: number | null
+    fasting_prior: number | null
+    target_range: [number, number]
+  }
   forecast_for: string
   disclaimer: string
   simulated: boolean
