@@ -42,11 +42,11 @@ function Header() {
   const routeId = loc.pathname.match(/^\/patients\/([^/]+)/)?.[1]
   const currentId = routeId ? safeDecode(routeId) : storedId
   const links = [
+    { to: '/about', label: 'About' },
     { to: '/', label: 'Patients', end: true },
     { to: `/patients/${currentId}`, label: 'Overview', end: true },
     { to: `/patients/${currentId}/trends`, label: 'Trends' },
     { to: `/patients/${currentId}/what-if`, label: 'What-If' },
-    { to: '/about', label: 'How It Works' },
     { to: '/abbreviations', label: 'Abbreviations' },
   ]
   const switchTo = (id: string) => {
@@ -56,17 +56,17 @@ function Header() {
   }
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
-        <NavLink to="/"><Logo /></NavLink>
-        <nav className="order-3 flex w-full gap-1 overflow-x-auto md:order-0 md:w-auto">
+      <div className="mx-auto flex max-w-7xl items-center gap-x-4 px-4 py-2.5 sm:gap-x-6 sm:px-6">
+        <NavLink to="/" className="shrink-0"><Logo /></NavLink>
+        <nav className="flex min-w-0 items-center gap-1 overflow-x-auto">
           {links.map((l) => (
             <NavLink key={l.label} to={l.to} end={l.end}
-              className={({ isActive }) => `tab whitespace-nowrap ${isActive ? 'tab-active' : ''}`}>
+              className={({ isActive }) => `tab whitespace-nowrap shrink-0 ${isActive ? 'tab-active' : ''}`}>
               {l.label}
             </NavLink>
           ))}
         </nav>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex shrink-0 items-center gap-2.5 sm:gap-3">
           <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1" role="group" aria-label="Demo personas">
             <span className="px-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-500">Persona</span>
             {PERSONAS.map((p) => (

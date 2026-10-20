@@ -2,18 +2,87 @@
 # generated artefacts (re-create with: python -m src.pipeline)
 data/processed/
 models/
-# python
+
+# python environments
 .venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# python caches & compiled bytecode
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# testing, linting, type-checking & notebooks
 .pytest_cache/
-# web
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.ipynb_checkpoints/
+
+# web / node
+node_modules/
 web/node_modules/
 # web/dist is kept so devices without Node.js can still run the app (python run.py)
+!web/dist/
 web/*.tsbuildinfo
-# os / editors
+dist-ssr/
+*.local
+
+# logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# os metadata & temp files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+Thumbs.db
+Thumbs.db:encryptable
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# editors
 .idea/
 .vscode/
+*.sublime-workspace
+*.sublime-project
+
+# secrets & environment variables
 .env
-*.log
+.env*.local
+*.env
+

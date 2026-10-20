@@ -187,15 +187,29 @@ function Stat({ label, before, after }: { label: string; before: number; after: 
 function Slider({ label, value, min, max, step, fmt, onChange, hint }: {
   label: string; value: number; min: number; max: number; step: number; fmt: (v: number) => string; onChange: (v: number) => void; hint?: string
 }) {
+  const pctFilled = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100))
   return (
     <div>
       <div className="flex items-baseline justify-between">
         <span className="text-sm font-semibold text-slate-800">{label}</span>
         <span className="text-lg font-bold text-accent-700 tabular-nums">{fmt(value)}</span>
       </div>
-      <input type="range" className="mt-2 w-full" min={min} max={max} step={step} value={value} aria-label={label}
-        onChange={(e) => onChange(parseFloat(e.target.value))} />
-      {hint && <div className="text-xs text-slate-500">{hint}</div>}
+      <div className="mt-2.5 flex items-center">
+        <input
+          type="range"
+          className="h-2 w-full cursor-pointer appearance-none rounded-full"
+          style={{
+            background: `linear-gradient(to right, #2554e8 0%, #2554e8 ${pctFilled}%, #e2e8f0 ${pctFilled}%, #e2e8f0 100%)`,
+          }}
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          aria-label={label}
+          onChange={(e) => onChange(parseFloat(e.target.value))}
+        />
+      </div>
+      {hint && <div className="mt-1.5 text-xs text-slate-500">{hint}</div>}
     </div>
   )
 }

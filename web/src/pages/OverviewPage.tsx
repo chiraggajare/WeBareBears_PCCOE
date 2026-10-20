@@ -186,55 +186,138 @@ function Overview({ d }: { d: PatientDetail }) {
 
       {/* EHR */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        {/* Card 1: Diagnoses & Medications */}
         <Card title="Health record – diagnoses & medications">
           <div className="space-y-4 text-sm">
             <div>
-              <div className="mb-1 font-semibold text-slate-800">Diagnoses</div>
-              {p.diagnoses.length === 0 ? <div className="text-slate-500">None recorded</div> : (
-                <ul className="space-y-1">
-                  {p.diagnoses.map((x) => (
-                    <li key={x.name} className="flex justify-between"><span>{x.name}</span><span className="text-slate-500">{x.year ? `since ${x.year}` : 'year unknown'}</span></li>
-                  ))}
+              <div className="mb-1.5 font-bold text-slate-800 text-xs uppercase tracking-wide">Diagnoses</div>
+              {p.diagnoses.length === 0 ? <div className="text-slate-500 text-xs">None recorded</div> : (
+                <ul className="space-y-1.5">
+                  {p.diagnoses.map((x) => {
+                    const style = getDiagnosisStyle(x.name)
+                    return (
+                      <li key={x.name} className="flex items-center justify-between text-xs">
+                        <span className="inline-flex items-center gap-2 font-medium text-slate-800">
+                          <span className={`h-2 w-2 rounded-full ${style.dot}`} />
+                          <span>{x.name}</span>
+                        </span>
+                        <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-500">
+                          {x.year ? `since ${x.year}` : 'year unknown'}
+                        </span>
+                      </li>
+                    )
+                  })}
                 </ul>
               )}
             </div>
+
             <div>
-              <div className="mb-1 font-semibold text-slate-800">Medications</div>
+              <div className="mb-1.5 font-bold text-slate-800 text-xs uppercase tracking-wide">Medications</div>
               {p.medications.length ? (
-                <div className="flex flex-wrap gap-1.5">{p.medications.map((m) => <span key={m} className="chip bg-accent-50 text-accent-700">{m}</span>)}</div>
-              ) : <div className="text-slate-500">None</div>}
+                <div className="flex flex-wrap gap-1.5">
+                  {p.medications.map((m) => {
+                    const chipStyle = getMedicationStyle(m)
+                    return (
+                      <span key={m} className={`rounded-lg px-2.5 py-1 text-xs font-semibold border shadow-2xs ${chipStyle}`}>
+                        {m}
+                      </span>
+                    )
+                  })}
+                </div>
+              ) : <div className="text-slate-500 text-xs">None</div>}
             </div>
-            <div className="text-slate-500">Waist {dem.waist_cm} cm</div>
+
+            <div className="flex items-center justify-between border-t border-slate-100 pt-2 text-xs">
+              <span className="text-slate-500">Waist Circumference</span>
+              <span className={`rounded-md px-2 py-0.5 font-bold tabular-nums border ${
+                dem.waist_cm >= 100
+                  ? 'bg-amber-50 text-amber-800 border-amber-200'
+                  : 'bg-slate-50 text-slate-700 border-slate-200'
+              }`}>
+                {dem.waist_cm} cm {dem.waist_cm >= 100 ? '(Elevated)' : ''}
+              </span>
+            </div>
           </div>
         </Card>
 
+        {/* Card 2: Lab Results (Color-Coded Latest vs Prior) */}
         <Card title="Lab results (latest vs prior)">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-slate-100 text-[10.5px] font-bold uppercase tracking-wider text-slate-400">
+                <th className="py-1.5 text-left font-bold">Biomarker</th>
+                <th className="py-1.5 text-right font-bold">Latest Value</th>
+                <th className="w-20 py-1.5 text-right font-bold pr-1">Prior</th>
+              </tr>
+            </thead>
             <tbody className="divide-y divide-slate-100">
               {p.labs.map((l) => {
-                const delta = l.value != null && l.prior != null ? l.value - l.prior : 0
+                const evalInfo = getLabEvaluation(l.name, l.value, l.prior)
                 return (
-                  <tr key={l.name}>
-                    <td className="py-1.5 text-slate-700">{l.name}</td>
-                    <td className="py-1.5 text-right font-semibold tabular-nums">{l.value}<span className="ml-1 text-xs font-normal text-slate-400">{l.unit}</span></td>
-                    <td className="w-20 py-1.5 text-right text-xs tabular-nums text-slate-500">
-                      {l.prior}{' '}
-                      <span className={Math.abs(delta) < 1e-9 ? '' : delta > 0 ? 'text-slate-700' : 'text-slate-400'}>{delta > 0 ? '↑' : delta < 0 ? '↓' : '→'}</span>
+                  <tr key={l.name} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="py-2 text-slate-700 font-medium">{l.name}</td>
+                    <td className="py-2 text-right tabular-nums">
+                      <span className={`text-[13px] ${evalInfo.valueColor}`}>
+                        {l.value}
+                      </span>
+                      <span className="ml-1 text-[10px] font-normal text-slate-400">{l.unit}</span>
+                    </td>
+                    <td className="w-20 py-2 text-right tabular-nums text-slate-500 pr-1">
+                      <span className="text-slate-500 text-xs">{l.prior}</span>{' '}
+                      <span className={`inline-block ml-0.5 text-xs ${evalInfo.deltaColor}`}>
+                        {evalInfo.arrow}
+                      </span>
                     </td>
                   </tr>
                 )
               })}
             </tbody>
           </table>
-          <div className="mt-2 text-xs text-slate-400">Latest {p.labs[0]?.date} · prior {p.labs[0]?.prior_date}</div>
+          <div className="mt-2 text-[11px] text-slate-400">
+            Latest {p.labs[0]?.date} · prior {p.labs[0]?.prior_date}
+          </div>
         </Card>
 
+        {/* Card 3: Genetic Markers (Color-Coded Risk) */}
         <Card title="Genetic markers" right={<span className="chip bg-violet-50 text-violet-700 ring-1 ring-violet-200">Simulated</span>}>
-          <div className="space-y-3 text-sm">
-            <Marker name="T2D polygenic risk score" value={`${p.genetic_markers.prs_t2d > 0 ? '+' : ''}${p.genetic_markers.prs_t2d} SD`} note={p.genetic_markers.notes.prs_t2d} />
-            <Marker name="TCF7L2 rs7903146" value={`${p.genetic_markers.tcf7l2_risk_alleles} risk allele${p.genetic_markers.tcf7l2_risk_alleles === 1 ? '' : 's'}`} note={p.genetic_markers.notes.tcf7l2_risk_alleles} />
-            <Marker name="MTNR1B rs10830963" value={p.genetic_markers.mtnr1b_risk_allele ? 'Carrier' : 'Non-carrier'} note={p.genetic_markers.notes.mtnr1b_risk_allele} />
-            <p className="text-xs text-slate-400">Simulated from 1000 Genomes South-Asian allele frequencies; small, cited effects. Context, not a headline.</p>
+          <div className="space-y-2.5 text-xs">
+            <Marker
+              name="T2D polygenic risk score"
+              value={`${p.genetic_markers.prs_t2d > 0 ? '+' : ''}${p.genetic_markers.prs_t2d} SD`}
+              note={p.genetic_markers.notes.prs_t2d}
+              badgeClass={
+                p.genetic_markers.prs_t2d >= 1.0
+                  ? 'bg-rose-50 text-rose-700 border-rose-200'
+                  : p.genetic_markers.prs_t2d <= -1.0
+                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  : 'bg-slate-50 text-slate-700 border-slate-200'
+              }
+            />
+            <Marker
+              name="TCF7L2 rs7903146"
+              value={`${p.genetic_markers.tcf7l2_risk_alleles} risk allele${p.genetic_markers.tcf7l2_risk_alleles === 1 ? '' : 's'}`}
+              note={p.genetic_markers.notes.tcf7l2_risk_alleles}
+              badgeClass={
+                p.genetic_markers.tcf7l2_risk_alleles === 2
+                  ? 'bg-rose-50 text-rose-700 border-rose-200'
+                  : p.genetic_markers.tcf7l2_risk_alleles === 1
+                  ? 'bg-amber-50 text-amber-700 border-amber-200'
+                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+              }
+            />
+            <Marker
+              name="MTNR1B rs10830963"
+              value={p.genetic_markers.mtnr1b_risk_allele ? 'Carrier' : 'Non-carrier'}
+              note={p.genetic_markers.notes.mtnr1b_risk_allele}
+              badgeClass={
+                p.genetic_markers.mtnr1b_risk_allele
+                  ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+              }
+            />
+            <p className="pt-1 text-[11px] text-slate-400 leading-snug">
+              Simulated from 1000 Genomes South-Asian allele frequencies; small, cited effects. Context, not a headline.
+            </p>
           </div>
         </Card>
       </div>
@@ -244,11 +327,149 @@ function Overview({ d }: { d: PatientDetail }) {
   )
 }
 
-function Marker({ name, value, note }: { name: string; value: string; note: string }) {
+function getDiagnosisStyle(name: string) {
+  const n = name.toLowerCase()
+  if (n.includes('diabetes') || n.includes('glucose')) {
+    return { dot: 'bg-rose-500' }
+  }
+  if (n.includes('hypertension') || n.includes('pressure') || n.includes('bp')) {
+    return { dot: 'bg-amber-500' }
+  }
+  if (n.includes('lipid') || n.includes('cholesterol')) {
+    return { dot: 'bg-indigo-500' }
+  }
+  if (n.includes('apnea') || n.includes('sleep')) {
+    return { dot: 'bg-purple-500' }
+  }
+  return { dot: 'bg-blue-500' }
+}
+
+function getMedicationStyle(name: string) {
+  const n = name.toLowerCase()
+  // Glucose lowering: emerald
+  if (
+    n.includes('metformin') ||
+    n.includes('sulfonylurea') ||
+    n.includes('glipizide') ||
+    n.includes('glimepiride') ||
+    n.includes('sglt') ||
+    n.includes('dpp') ||
+    n.includes('insulin')
+  ) {
+    return 'bg-emerald-50 text-emerald-800 border-emerald-200/90'
+  }
+  // Cardiovascular / BP: amber
+  if (
+    n.includes('beta-blocker') ||
+    n.includes('metoprolol') ||
+    n.includes('atenolol') ||
+    n.includes('ace inhibitor') ||
+    n.includes('lisinopril') ||
+    n.includes('arb') ||
+    n.includes('losartan') ||
+    n.includes('amlodipine')
+  ) {
+    return 'bg-amber-50 text-amber-800 border-amber-200/90'
+  }
+  // Lipids: purple
+  if (n.includes('statin') || n.includes('atorvastatin') || n.includes('rosuvastatin')) {
+    return 'bg-purple-50 text-purple-800 border-purple-200/90'
+  }
+  return 'bg-blue-50 text-blue-800 border-blue-200/90'
+}
+
+function getLabEvaluation(name: string, value: number | null, prior?: number | null) {
+  if (value == null) {
+    return { status: 'normal', deltaColor: 'text-slate-400', arrow: '→', valueColor: 'text-slate-500' }
+  }
+  const n = name.toLowerCase()
+  let status: 'normal' | 'elevated' | 'high' = 'normal'
+  let higherIsBetter = false
+
+  if (n.includes('hba1c')) {
+    if (value >= 8.0) status = 'high'
+    else if (value >= 5.7) status = 'elevated'
+  } else if (n.includes('fasting glucose')) {
+    if (value >= 126) status = 'high'
+    else if (value >= 100) status = 'elevated'
+  } else if (n.includes('ldl')) {
+    if (value >= 130) status = 'high'
+    else if (value >= 100) status = 'elevated'
+  } else if (n.includes('hdl')) {
+    higherIsBetter = true
+    if (value < 40) status = 'elevated'
+  } else if (n.includes('triglycerides')) {
+    if (value >= 150) status = 'elevated'
+  } else if (n.includes('egfr')) {
+    higherIsBetter = true
+    if (value < 60) status = 'high'
+    else if (value < 90) status = 'elevated'
+  } else if (n.includes('sbp')) {
+    if (value >= 140) status = 'high'
+    else if (value >= 130) status = 'elevated'
+  } else if (n.includes('dbp')) {
+    if (value >= 90) status = 'high'
+    else if (value >= 80) status = 'elevated'
+  }
+
+  const delta = prior != null ? value - prior : 0
+  let deltaColor = 'text-slate-400'
+  let arrow = '→'
+
+  if (Math.abs(delta) > 1e-4) {
+    if (higherIsBetter) {
+      if (delta > 0) {
+        deltaColor = 'text-emerald-600 font-bold'
+        arrow = '↑'
+      } else {
+        deltaColor = 'text-rose-600 font-bold'
+        arrow = '↓'
+      }
+    } else {
+      if (delta > 0) {
+        deltaColor = 'text-rose-600 font-bold'
+        arrow = '↑'
+      } else {
+        deltaColor = 'text-emerald-600 font-bold'
+        arrow = '↓'
+      }
+    }
+  }
+
+  const valueColor =
+    status === 'high'
+      ? 'text-rose-700 font-extrabold'
+      : status === 'elevated'
+      ? 'text-amber-700 font-bold'
+      : 'text-slate-800 font-semibold'
+
+  return { status, deltaColor, arrow, valueColor }
+}
+
+function Marker({
+  name,
+  value,
+  note,
+  badgeClass,
+}: {
+  name: string
+  value: string
+  note: string
+  badgeClass?: string
+}) {
   return (
-    <div>
-      <div className="flex justify-between"><span className="font-medium text-slate-800">{name}</span><span className="font-semibold tabular-nums">{value}</span></div>
-      <div className="text-xs text-slate-500">{note}</div>
+    <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-2.5">
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-slate-800 text-xs">{name}</span>
+        <span
+          className={`rounded-md px-2 py-0.5 text-xs font-bold tabular-nums border ${
+            badgeClass || 'bg-white text-slate-700 border-slate-200'
+          }`}
+        >
+          {value}
+        </span>
+      </div>
+      <div className="mt-1 text-[11px] text-slate-500 leading-snug">{note}</div>
     </div>
   )
 }

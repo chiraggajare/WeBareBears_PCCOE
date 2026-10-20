@@ -17,13 +17,17 @@ import textwrap
 import warnings
 from pathlib import Path
 
+import os
+
+os.environ.setdefault("MPLBACKEND", "Agg")
+
 import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
-import pandas as pd  # noqa: E402
-from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
