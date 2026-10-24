@@ -406,59 +406,59 @@ Rather than presenting raw mathematical SHAP coefficients to clinicians, SleepTw
 ## 7. Detailed Directory & File-by-File Code Breakdown
 
 ### Root Files
-- [`run.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/run.py): Cross-platform launcher. Checks dependencies, runs the data pipeline, starts the Uvicorn server, detects local IP for mobile LAN testing (`--lan`), and opens the browser (`--open`).
-- [`requirements.txt`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/requirements.txt): Exact pinned dependencies.
-- [`pytest.ini`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/pytest.ini): Configures test execution flags.
-- [`LICENSE`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/LICENSE): MIT Open Source License.
+- [`run.py`](../run.py): Cross-platform launcher. Checks dependencies, runs the data pipeline, starts the Uvicorn server, detects local IP for mobile LAN testing (`--lan`), and opens the browser (`--open`).
+- [`requirements.txt`](../requirements.txt): Exact pinned dependencies.
+- [`pytest.ini`](../pytest.ini): Configures test execution flags.
+- [`LICENSE`](../LICENSE): MIT Open Source License.
 
 ### Source Code (`src/`)
-- [`src/config.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/config.py): Defines global constants (300 patients, 21 days, thresholds of 180 mg/dL and 145 mmHg, risk bands, dates, and directory paths).
-- [`src/calibration.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/calibration.py): Reads raw CDC NHANES XPT files and LifeSnaps Fitbit CSVs. Computes CKD-EPI eGFR and builds joint distribution pools.
-- [`src/profiles.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/profiles.py): Synthesizes 300 EHR profiles. Samples South Asian allele frequencies (*TCF7L2*, *MTNR1B*), diagnoses, medications, prior labs, and scripts the 3 primary demo personas.
-- [`src/wearables.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/wearables.py): Generates 21 days of sleep, heart, and step streams. Implements `night_heart` for autonomic modeling and `hypnogram` for 5-minute sleep stages.
-- [`src/physiology.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/physiology.py): Core mathematical formulas: `sleep_debt`, `si_series`, `simulate_glucose` (Bergman ODE integration), and `morning_sbp`.
-- [`src/generate_cohort.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/generate_cohort.py): Orchestrates the complete 300-patient simulation and saves processed Parquet files into `data/processed/`.
-- [`src/features.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/features.py): Derives 14-day baseline means/SDs and generates daily z-score features (`tst_z`, `hrv_z`, `odi_z`, `debt_x_hba1c`, etc.).
-- [`src/train.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/train.py): Trains the 5-fold cross-validated LightGBM next-day models, runs the 3-tier ablation study, and computes SHAP importances.
-- [`src/short_horizon.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/short_horizon.py): Constructs hourly sample windows and trains the 2-hour-ahead glucose spike model.
-- [`src/explain.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/explain.py): Maps numerical SHAP values into categorized, natural language clinical explanations.
-- [`src/twin.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/twin.py): The digital twin engine. Keeps models in memory, scores patients out-of-fold, and powers the 15 ms What-If simulation.
-- [`src/validate_lifesnaps.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/validate_lifesnaps.py): Runs paired Wilcoxon signed-rank validation on 38 real Fitbit users from the LifeSnaps dataset.
-- [`src/integrity.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/integrity.py): Computes and verifies SHA-256 hashes of all trained `.joblib` model files before unpickling.
-- [`src/report.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/report.py): Auto-generates `reports/results.md` directly from pipeline output metrics.
-- [`src/pipeline.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/src/pipeline.py): Master CLI script running calibration $\rightarrow$ simulation $\rightarrow$ features $\rightarrow$ training $\rightarrow$ validation.
+- [`src/config.py`](../src/config.py): Defines global constants (300 patients, 21 days, thresholds of 180 mg/dL and 145 mmHg, risk bands, dates, and directory paths).
+- [`src/calibration.py`](../src/calibration.py): Reads raw CDC NHANES XPT files and LifeSnaps Fitbit CSVs. Computes CKD-EPI eGFR and builds joint distribution pools.
+- [`src/profiles.py`](../src/profiles.py): Synthesizes 300 EHR profiles. Samples South Asian allele frequencies (*TCF7L2*, *MTNR1B*), diagnoses, medications, prior labs, and scripts the 3 primary demo personas.
+- [`src/wearables.py`](../src/wearables.py): Generates 21 days of sleep, heart, and step streams. Implements `night_heart` for autonomic modeling and `hypnogram` for 5-minute sleep stages.
+- [`src/physiology.py`](../src/physiology.py): Core mathematical formulas: `sleep_debt`, `si_series`, `simulate_glucose` (Bergman ODE integration), and `morning_sbp`.
+- [`src/generate_cohort.py`](../src/generate_cohort.py): Orchestrates the complete 300-patient simulation and saves processed Parquet files into `data/processed/`.
+- [`src/features.py`](../src/features.py): Derives 14-day baseline means/SDs and generates daily z-score features (`tst_z`, `hrv_z`, `odi_z`, `debt_x_hba1c`, etc.).
+- [`src/train.py`](../src/train.py): Trains the 5-fold cross-validated LightGBM next-day models, runs the 3-tier ablation study, and computes SHAP importances.
+- [`src/short_horizon.py`](../src/short_horizon.py): Constructs hourly sample windows and trains the 2-hour-ahead glucose spike model.
+- [`src/explain.py`](../src/explain.py): Maps numerical SHAP values into categorized, natural language clinical explanations.
+- [`src/twin.py`](../src/twin.py): The digital twin engine. Keeps models in memory, scores patients out-of-fold, and powers the 15 ms What-If simulation.
+- [`src/validate_lifesnaps.py`](../src/validate_lifesnaps.py): Runs paired Wilcoxon signed-rank validation on 38 real Fitbit users from the LifeSnaps dataset.
+- [`src/integrity.py`](../src/integrity.py): Computes and verifies SHA-256 hashes of all trained `.joblib` model files before unpickling.
+- [`src/report.py`](../src/report.py): Auto-generates `reports/results.md` directly from pipeline output metrics.
+- [`src/pipeline.py`](../src/pipeline.py): Master CLI script running calibration $\rightarrow$ simulation $\rightarrow$ features $\rightarrow$ training $\rightarrow$ validation.
 
 ### Backend API (`api/`)
-- [`api/main.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/api/main.py): FastAPI web server. Defines typed endpoints, rate limiters, security headers, static SPA routing, and Pydantic validation schemas.
+- [`api/main.py`](../api/main.py): FastAPI web server. Defines typed endpoints, rate limiters, security headers, static SPA routing, and Pydantic validation schemas.
 - `api/mock/`: Contains frozen mock JSON payloads (`patients.json`, `patient_A.json`, `trends_A.json`, `what_if_A.json`) for offline frontend development.
 
 ### Frontend Web Application (`web/`)
-- [`web/src/App.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/App.tsx): Main application layout, routing, header navigation, persona switcher (A, B, C), and global safety banners.
-- [`web/src/api.ts`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/api.ts): Typed TypeScript client handling API requests to the backend.
-- [`web/src/components/ui.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/components/ui.tsx): UI components: Gauge dials, Risk badges, Alert cards, Modals, and Simulated Data chips.
-- [`web/src/lib/state.ts`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/lib/state.ts): Persistent state context storing the currently active patient ID.
+- [`web/src/App.tsx`](../web/src/App.tsx): Main application layout, routing, header navigation, persona switcher (A, B, C), and global safety banners.
+- [`web/src/api.ts`](../web/src/api.ts): Typed TypeScript client handling API requests to the backend.
+- [`web/src/components/ui.tsx`](../web/src/components/ui.tsx): UI components: Gauge dials, Risk badges, Alert cards, Modals, and Simulated Data chips.
+- [`web/src/lib/state.ts`](../web/src/lib/state.ts): Persistent state context storing the currently active patient ID.
 - **Pages:**
-  - [`web/src/pages/PatientsPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/PatientsPage.tsx): Clinical triage list sorted by risk level with search and filter capabilities.
-  - [`web/src/pages/OverviewPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/OverviewPage.tsx): Single-patient deep dive: EHR summary, dual risk gauges, SHAP reasons, 2-hour alert banner, and beta-blocker notices.
-  - [`web/src/pages/TrendsPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/TrendsPage.tsx): Time-series visualizations showing 21-day trajectories alongside green personal-normal baseline bands.
-  - [`web/src/pages/WhatIfPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/WhatIfPage.tsx): Interactive scenario sandbox with sleep duration sliders, bedtime shift controls, CPAP toggles, and before/after glucose curves.
-  - [`web/src/pages/AboutPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/AboutPage.tsx): Interactive documentation detailing formulas, models, ablation results, and literature citations.
-  - [`web/src/pages/AbbreviationsPage.tsx`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/web/src/pages/AbbreviationsPage.tsx): Searchable clinical acronym dictionary.
+  - [`web/src/pages/PatientsPage.tsx`](../web/src/pages/PatientsPage.tsx): Clinical triage list sorted by risk level with search and filter capabilities.
+  - [`web/src/pages/OverviewPage.tsx`](../web/src/pages/OverviewPage.tsx): Single-patient deep dive: EHR summary, dual risk gauges, SHAP reasons, 2-hour alert banner, and beta-blocker notices.
+  - [`web/src/pages/TrendsPage.tsx`](../web/src/pages/TrendsPage.tsx): Time-series visualizations showing 21-day trajectories alongside green personal-normal baseline bands.
+  - [`web/src/pages/WhatIfPage.tsx`](../web/src/pages/WhatIfPage.tsx): Interactive scenario sandbox with sleep duration sliders, bedtime shift controls, CPAP toggles, and before/after glucose curves.
+  - [`web/src/pages/AboutPage.tsx`](../web/src/pages/AboutPage.tsx): Interactive documentation detailing formulas, models, ablation results, and literature citations.
+  - [`web/src/pages/AbbreviationsPage.tsx`](../web/src/pages/AbbreviationsPage.tsx): Searchable clinical acronym dictionary.
 
 ### Automation Scripts (`scripts/`)
-- [`scripts/download_data.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/scripts/download_data.py): Downloads open datasets from the CDC and Zenodo using HTTP range requests with SHA-256 validation.
-- [`scripts/make_docs.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/scripts/make_docs.py): Programmatically builds `presentation.pptx`, `presentation.pdf`, and `architecture.pdf`.
-- [`scripts/take_screenshots.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/scripts/take_screenshots.py): Automates headless browser screenshots of dashboard views.
-- [`scripts/export_mocks.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/scripts/export_mocks.py): Refreshes `api/mock/*.json` files from a running backend instance.
+- [`scripts/download_data.py`](../scripts/download_data.py): Downloads open datasets from the CDC and Zenodo using HTTP range requests with SHA-256 validation.
+- [`scripts/make_docs.py`](../scripts/make_docs.py): Programmatically builds `presentation.pptx`, `presentation.pdf`, and `architecture.pdf`.
+- [`scripts/take_screenshots.py`](../scripts/take_screenshots.py): Automates headless browser screenshots of dashboard views.
+- [`scripts/export_mocks.py`](../scripts/export_mocks.py): Refreshes `api/mock/*.json` files from a running backend instance.
 
 ### Automated Tests (`tests/`)
-- [`tests/test_sleeptwin.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/tests/test_sleeptwin.py): Verifies physiology math (25% SI drop), absence of cross-fold leakage, and API endpoint contracts.
-- [`tests/test_security.py`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/tests/test_security.py): Verifies security headers, CORS origin restrictions, path traversal prevention, request body limits, rate limiting, and model integrity checking.
+- [`tests/test_sleeptwin.py`](../tests/test_sleeptwin.py): Verifies physiology math (25% SI drop), absence of cross-fold leakage, and API endpoint contracts.
+- [`tests/test_security.py`](../tests/test_security.py): Verifies security headers, CORS origin restrictions, path traversal prevention, request body limits, rate limiting, and model integrity checking.
 
 ### Data & Reports (`data/`, `reports/`, `docs/`)
 - `data/raw/`: Storage directory for raw NHANES XPT files and LifeSnaps daily CSVs.
 - `data/processed/`: Columnar Parquet files (`profiles.parquet`, `cgm.parquet`, `nights.parquet`, `daily.parquet`).
-- `reports/`: JSON metric summaries and the generated results document ([`reports/results.md`](file:///c:/Users/dell/Desktop/WeBareBears_PCCOE/reports/results.md)).
+- `reports/`: JSON metric summaries and the generated results document ([`reports/results.md`](../reports/results.md)).
 - `docs/`: System documentation, architecture diagrams, and slide decks.
 
 ---

@@ -83,6 +83,13 @@ Thumbs.db:encryptable
 
 # secrets & environment variables
 .env
+.env.*
+!.env.example
+!.env.template
 .env*.local
 *.env
-
+.envrc
+*.pem
+*.p12
+*.pfx
+*.key

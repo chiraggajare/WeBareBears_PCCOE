@@ -2,9 +2,9 @@
 
 **Team WeBareBears** · **PCCOE**
 
-> 🎥 **Demo video (≥ 20 min):** `[PASTE UNLISTED YOUTUBE LINK HERE]` — script and timings in [`docs/video_script.md`](docs/video_script.md)
-> 📐 **Architecture:** [`docs/architecture.pdf`](docs/architecture.pdf) · 📊 **Presentation (14 slides, project details + outcomes):** [`docs/presentation.pdf`](docs/presentation.pdf) / [`docs/presentation.pptx`](docs/presentation.pptx) · 📈 **Results:** [`reports/results.md`](reports/results.md)
-> 📘 **Guides:** [Project overview](docs/PROJECT_OVERVIEW.md) · [Website guide (doctor's view)](docs/WEBSITE_GUIDE.md) · [Development, ML & training](docs/DEVELOPMENT.md)
+> 🎥 **Demo video (≥ 20 min):** `[PASTE UNLISTED YOUTUBE LINK HERE]`
+> 📐 **Architecture:** [`docs/architecture.pdf`](docs/architecture.pdf) · 📊 **Presentation (14 slides, project details + outcomes):** [`docs/SleepTwin_Presentation.pdf`](docs/SleepTwin_Presentation.pdf) / [`docs/SleepTwin_Presentation.pptx`](docs/SleepTwin_Presentation.pptx) · 📈 **Results:** [`reports/results.md`](reports/results.md)
+> 📘 **Guide:** [Project overview](docs/PROJECT_OVERVIEW.md)
 
 > ⚠️ **Model-based projection for clinical decision support. Research prototype.** Not a diagnostic tool. **All patient data is simulated.**
 
@@ -18,10 +18,10 @@
 | Project title | **SleepTwin** — a sleep-driven cardiometabolic digital twin |
 | Problem statement + healthcare use case | [Problem statement & healthcare use case](#problem-statement--healthcare-use-case) |
 | Technical stack + AI/ML model / framework | [Technical stack](#technical-stack) · [AI/ML model details](#aiml-model-details) |
-| Video (≥ 20 min, unlisted YouTube or PowerPoint recording) | Link at the top of this README · script: [`docs/video_script.md`](docs/video_script.md) · speaker notes are in [`docs/presentation.pptx`](docs/presentation.pptx) |
+| Video (≥ 20 min, unlisted YouTube or PowerPoint recording) | Link at the top of this README |
 | Open-source licence | [MIT](LICENSE) — see [Licence](#licence) (dataset licences listed) |
 | Architecture diagram (PDF/PPT) | [`docs/architecture.pdf`](docs/architecture.pdf) (also slide 5 of the deck) |
-| Presentation (PDF/PPT) with project details + outcome | [`docs/presentation.pdf`](docs/presentation.pdf) · [`docs/presentation.pptx`](docs/presentation.pptx) |
+| Presentation (PDF/PPT) with project details + outcome | [`docs/SleepTwin_Presentation.pdf`](docs/SleepTwin_Presentation.pdf) · [`docs/SleepTwin_Presentation.pptx`](docs/SleepTwin_Presentation.pptx) |
 
 ## Team
 
@@ -112,15 +112,16 @@ Manual steps (same result): `python -m src.pipeline` → `pytest -q` → `uvicor
 
 Shareable What-If presets: `/patients/A/what-if?sleep=7.5&shift=0`, `/patients/B/what-if?cpap=1`.
 
-## The product (5 pages)
+## The product (6 pages)
 
 | Page | Route | Contents |
 |---|---|---|
-| Patients | `/` | Search + filters, table sorted by risk, red/amber/green badge, 2-hour alert icon, one-line top reason |
-| Overview | `/patients/:id` | EHR card (demographics, diagnoses + years, labs latest vs prior, meds, **genetic markers labelled simulated**), next-day glucose gauge + BP gauge, 2-hour alert banner, "Why" card (SHAP), beta-blocker masking and hidden-apnea flags, data-quality chip, **Open What-If** |
-| Trends | `/patients/:id/trends` | Tabs (max 2 charts visible): CGM 48 h with 70–180 band and daily peaks; sleep hours and last-night hypnogram; HRV and resting HR; steps and O₂ dips. Each has a green **personal-normal band** |
-| What-If | `/patients/:id/what-if` | Sleep-hours slider, bedtime-shift slider, CPAP toggle, nights covered, Reset; before → after gauges; tomorrow's glucose curve (before grey, after blue); reasons after |
-| How It Works | `/about` | Two data streams, simulator diagram + formulas, ablation, 2-hour result, LifeSnaps result, data card, limitations, sources, disclaimer |
+| About | `/about` | Overview of the two data streams, simulator model, equations, ablation results, 2-hour alert validation, LifeSnaps evidence, data card, limitations, sources and disclaimer |
+| Patients | `/` | Search + filters, table sorted by risk, red/amber/green risk badge, 2-hour alert icon and one-line top reason |
+| Overview | `/patients/:id` | EHR summary (demographics, diagnoses, labs, meds, **genetic markers labelled simulated**), next-day glucose and BP gauges, 2-hour alert banner, SHAP-based "Why" panel, beta-blocker masking and hidden-apnea flags, data-quality chip, **Open What-If** |
+| Trends | `/patients/:id/trends` | Time-series views for CGM, sleep, hypnogram, HRV/resting HR and O₂ dips; each chart includes a green **personal-normal band** |
+| What-If | `/patients/:id/what-if` | Sleep-hours slider, bedtime-shift slider, CPAP toggle, nights covered, reset control, before/after risk gauges, and before/after glucose curve with updated reasons |
+| Abbreviations | `/abbreviations` | Glossary of medical and model abbreviations used across the app, including HbA1c, HRV, RHR, SBP, ODI, TST, WASO and others |
 
 Every risk screen shows the disclaimer, and the header always shows a **"Simulated data"** badge.
 
@@ -240,7 +241,7 @@ WeBareBears_PCCOE/
 ├── tests/test_sleeptwin.py  tests/test_security.py
 ├── web/                           # Vite React TS app (5 pages)
 ├── reports/results.md  reports/*.json  reports/lifesnaps_boxplot.png
-└── docs/architecture.pdf  docs/presentation.pptx
+└── docs/architecture.pdf  docs/SleepTwin_Presentation.pptx
 ```
 
 ## API (frozen contract)

@@ -1305,7 +1305,6 @@ function DigitalTwinHeroAnimation() {
 
               {/* Current Moment T+0 Indicator */}
               <circle cx="170" cy="30" r="3.5" fill="#0284c7" />
-              <circle cx="170" cy="30" r="7" fill="none" stroke="#0284c7" strokeWidth="1.2" opacity="0.6" className="animate-ping" />
 
               {/* Predictive ODE Forecast Corridor (Dashed line into future) */}
               <path
@@ -1364,4 +1363,3 @@ function DigitalTwinHeroAnimation() {
     </div>
   )
 }
-
