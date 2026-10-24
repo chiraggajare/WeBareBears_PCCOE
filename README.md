@@ -2,9 +2,13 @@
 
 **Team WeBareBears** · **PCCOE**
 
-> 🎥 **Demo video (≥ 20 min):** `[PASTE UNLISTED YOUTUBE LINK HERE]`
-> 📐 **Architecture:** [`docs/architecture.pdf`](docs/architecture.pdf) · 📊 **Presentation (14 slides, project details + outcomes):** [`docs/SleepTwin_Presentation.pdf`](docs/SleepTwin_Presentation.pdf) / [`docs/SleepTwin_Presentation.pptx`](docs/SleepTwin_Presentation.pptx) · 📈 **Results:** [`reports/results.md`](reports/results.md)
-> 📘 **Guide:** [Project overview](docs/PROJECT_OVERVIEW.md)
+| Resource | Link |
+|---|---|
+| Demo video | https://www.youtube.com/watch?v=klmTYSdikRc |
+| Architecture | [PDF](docs/architecture.pdf) |
+| Presentation | [PDF](docs/SleepTwin_Presentation.pdf) · [PowerPoint](docs/SleepTwin_Presentation.pptx) |
+| Results | [Model results](reports/results.md) |
+| Guide | [Project overview](docs/PROJECT_OVERVIEW.md) |
 
 > ⚠️ **Model-based projection for clinical decision support. Research prototype.** Not a diagnostic tool. **All patient data is simulated.**
 
@@ -25,11 +29,13 @@
 
 ## Team
 
-| | |
+| Team detail | Information |
 |---|---|
 | Team name | **WeBareBears** |
 | College / incubator | **PCCOE** |
-| Members (all full-time students) | `[P1 – Data & Model]`, `[P2 – Simulator, Backend & Integration]`, `[P3 – Frontend, Design & Video]` |
+| Swati Sharma | Project introduction and live demonstration |
+| Rohan Paramanand | Clinical Applications & Product Engineering |
+| Chirag Gajare | Frontend Development & Clinical Simulation Demo |
 | Challenge | Happiest Health Digital Twin Challenge 2026 — Phase 1 (Prototype & Code Submission) |
 
 > Root folder follows the required `Team Name_College Name` format: `WeBareBears_PCCOE`.
